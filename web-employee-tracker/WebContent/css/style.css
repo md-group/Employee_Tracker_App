@@ -12,7 +12,7 @@ table {
 
 th {
 	border-bottom: 1px solid gray;
-	background: none repeat scroll 0 0 #0066ff;
+	background: #0066ff;
 	padding: 10px;
 	color: #FFFFFF;
 }
@@ -39,4 +39,15 @@ tr:nth-child(odd) {
 	position:relative;
 	left: 150px;
 	top:50px;
+}
+
+.add-employee-button {
+	border: 1px solid #666;
+	padding: 4px;
+	font-size: 12px;
+	font-weight: bold;
+	width: 120 px;
+	padding: 5px 10px;
+	margin-bottom: 15px;
+	background: #cccccc;
 }

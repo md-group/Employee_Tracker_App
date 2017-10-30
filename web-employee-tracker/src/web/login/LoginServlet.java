@@ -16,11 +16,12 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// get user and pass from "login.jsp"
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		if((userName.equals("admin")) && (password.equals("admin"))) {
-			request.setAttribute("userName", userName);
+			//request.setAttribute("userName", userName);
 			response.sendRedirect("EmployeeControllerServlet");
 		}else {
 			request.setAttribute("errMessage", "Incorrect user and/or password");

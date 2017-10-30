@@ -14,6 +14,11 @@
 	<br>
 	
 	<div id="content">
+	
+		<!-- put button: Add Employee -->
+		
+		<input type="button" value="Add Employee" onclick="window.location.href='add-employee-form.jsp'; return false;" class="add-employee-button" />
+	
 		<table>
 			<tr>
 				<th>Password</th>
