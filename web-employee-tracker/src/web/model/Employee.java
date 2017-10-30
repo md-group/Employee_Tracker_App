@@ -1,5 +1,7 @@
 package web.model;
 
+import java.sql.Date;
+
 public class Employee {
 	
 	private int id;
@@ -9,10 +11,10 @@ public class Employee {
 	private int age;
 	private String email;
 	private int salary;
-	private int oldEmployee;
+	private Date oldEmployee;
 	
 	public Employee(int id, String pass, String firstName, String lastName, int age, String email, int salary,
-			int oldEmployee) {
+			Date oldEmployee) {
 		super();
 		this.id = id;
 		this.pass = pass;
@@ -25,7 +27,7 @@ public class Employee {
 	}
 
 	public Employee(String pass, String firstName, String lastName, int age, String email, int salary,
-			int oldEmployee) {
+			Date oldEmployee) {
 		super();
 		this.pass = pass;
 		this.firstName = firstName;
@@ -92,11 +94,11 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public int getOldEmployee() {
+	public Date getOldEmployee() {
 		return oldEmployee;
 	}
 
-	public void setOldEmployee(int oldEmployee) {
+	public void setOldEmployee(Date oldEmployee) {
 		this.oldEmployee = oldEmployee;
 	}
 
