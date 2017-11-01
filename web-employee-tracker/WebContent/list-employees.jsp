@@ -31,16 +31,16 @@
 				<th>Action</th>
 			</tr>
 			
-			<c:forEach var="tempStudent" items="${STUDENT_LIST}">
+			<c:forEach var="tempEmployee" items="${EMPLOYEE_LIST}">
 			
 				<tr>
-					<td>${tempStudent.pass}</td>
-					<td>${tempStudent.firstName}</td>
-					<td>${tempStudent.lastName}</td>
-					<td>${tempStudent.age}</td>
-					<td>${tempStudent.email}</td>
-					<td>${tempStudent.salary}</td>
-					<td>${tempStudent.oldEmployee}</td>
+					<td>${tempEmployee.pass}</td>
+					<td>${tempEmployee.firstName}</td>
+					<td>${tempEmployee.lastName}</td>
+					<td>${tempEmployee.age}</td>
+					<td>${tempEmployee.email}</td>
+					<td>${tempEmployee.salary}</td>
+					<td>${tempEmployee.oldEmployee}</td>
 					<td>Update | Delete</td>
 				</tr>
 			</c:forEach>

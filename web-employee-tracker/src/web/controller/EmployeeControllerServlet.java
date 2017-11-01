@@ -42,7 +42,7 @@ public class EmployeeControllerServlet extends HttpServlet {
 			// read the command parameter
 			String theCommand = request.getParameter("command");
 			
-			// if the command is missing, then default to listing students
+			// if the command is missing, then default to listing employees
 			if (theCommand == null) {
 				theCommand = "LIST";
 			}
@@ -98,7 +98,7 @@ public class EmployeeControllerServlet extends HttpServlet {
 		List<Employee> employees = employeeDbUtil.getEmployees();
 		
 		// add employees to the request
-		request.setAttribute("STUDENT_LIST", employees);
+		request.setAttribute("EMPLOYEE_LIST", employees);
 		
 		// send to JSP page
 		request.getRequestDispatcher("/list-employees.jsp").forward(request, response);
