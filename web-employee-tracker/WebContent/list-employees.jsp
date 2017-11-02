@@ -40,8 +40,11 @@
 				</c:url>
 				
 				<!-- set up a link to delete a employee -->
-				
-				
+				<c:url var="deleteLink" value="EmployeeControllerServlet">
+					<c:param name="command" value="DELETE" />
+					<c:param name="employeeId" value="${tempEmployee.id}" />
+				</c:url>
+								
 				<tr>
 					<td>${tempEmployee.pass}</td>
 					<td>${tempEmployee.firstName}</td>
@@ -50,7 +53,10 @@
 					<td>${tempEmployee.email}</td>
 					<td>${tempEmployee.salary}</td>
 					<td>${tempEmployee.oldEmployee}</td>
-					<td><a href="${tempLink}">Update</a> | Delete</td>
+					<td><a href="${tempLink}">Update</a> | 
+						<a href="${deleteLink}"
+						onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false"
+						>Delete</a></td>
 				</tr>
 			</c:forEach>
 		</table>

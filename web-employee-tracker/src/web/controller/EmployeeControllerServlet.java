@@ -66,6 +66,10 @@ public class EmployeeControllerServlet extends HttpServlet {
 				updateEmployee(request, response);
 				break;
 				
+			case "DELETE":
+				deleteEmployee(request, response);
+				break;
+				
 			default: 
 				listEmployees(request, response);
 			}
@@ -75,6 +79,18 @@ public class EmployeeControllerServlet extends HttpServlet {
 		}catch (Exception e) {
 			throw new ServletException(e);
 		}
+	}
+
+	private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		// read id employee from form data
+		String employeeId = request.getParameter("employeeId");
+		
+		// delete employee from database
+		employeeDbUtil.deleteEmployee(employeeId);
+		
+		// send them back to "list employees" page
+		listEmployees(request, response);
 	}
 
 	private void updateEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -98,7 +114,7 @@ public class EmployeeControllerServlet extends HttpServlet {
 		// perform update on database
 		employeeDbUtil.updateEmployee(employee);
 		
-		// send them back to the "list employee" page
+		// send them back to the "list employees" page
 		listEmployees(request, response);
 	}
 

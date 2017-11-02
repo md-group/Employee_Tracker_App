@@ -98,9 +98,9 @@ public class EmployeeDbUtil {
 			conn = dataSource.getConnection();
 			
 			// create sql statement for insert
-			String sql = "insert into employee "
+			String sql = "INSERT INTO employee "
 					+ "(pass, first_name, last_name, age, email, salary, old_employee)"
-					+ "values (?, ?, ?, ?, ?, ?, ?)";
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conn.prepareStatement(sql);
 			
@@ -140,7 +140,7 @@ public class EmployeeDbUtil {
 			conn = dataSource.getConnection();
 			
 			// create sql query to get selected employee
-			String sql = "select * from employee where id=?";
+			String sql = "SELECT * FROM employee WHERE id=?";
 			
 			// create prepared statement
 			stmt = conn.prepareStatement(sql);
@@ -185,9 +185,9 @@ public class EmployeeDbUtil {
 			conn = dataSource.getConnection();
 			
 			// create sql update statement
-			String sql = "update employee "
-					+ "set pass=?, first_name=?, last_name=?, age=?, email=?, salary=?, old_employee=? "
-					+ "where id=?";
+			String sql = "UPDATE employee "
+					+ "SET pass=?, first_name=?, last_name=?, age=?, email=?, salary=?, old_employee=? "
+					+ "WHERE id=?";
 			
 			// prepare statement
 			stmt = conn.prepareStatement(sql);
@@ -209,6 +209,39 @@ public class EmployeeDbUtil {
 			// clean JDBC objects
 			close(conn, stmt, null);
 		}
+	}
+
+	public void deleteEmployee(String employeeId) throws Exception {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int employeeDbId;
+		
+		try {
+			// convert employee id to int
+			employeeDbId = Integer.parseInt(employeeId);
+			
+			// get a connection 
+			conn = dataSource.getConnection();
+			
+			// create sql query to delete employee
+			String sql = "DELETE FROM employee WHERE id=?";
+			
+			// prepare statement
+			stmt = conn.prepareStatement(sql);
+			
+			// set params
+			stmt.setInt(1, employeeDbId);
+			
+			// execute query
+			stmt.execute();
+			
+		}finally {
+			// clean up JDBC objects
+			close(conn, stmt, null);
+		}
+		
+		
 	}
 
 }
