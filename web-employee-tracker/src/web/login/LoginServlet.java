@@ -21,7 +21,6 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		if((userName.equals("admin")) && (password.equals("admin"))) {
-			//request.setAttribute("userName", userName);
 			response.sendRedirect("EmployeeControllerServlet");
 		}else {
 			request.setAttribute("errMessage", "Incorrect user and/or password");

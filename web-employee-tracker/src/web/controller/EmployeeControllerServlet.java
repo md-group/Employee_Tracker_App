@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,6 +58,14 @@ public class EmployeeControllerServlet extends HttpServlet {
 				addEmployee(request, response);
 				break;
 				
+			case "LOAD":
+				loadEmployee(request, response);
+				break;
+				
+			case "UPDATE":
+				updateEmployee(request, response);
+				break;
+				
 			default: 
 				listEmployees(request, response);
 			}
@@ -66,6 +75,48 @@ public class EmployeeControllerServlet extends HttpServlet {
 		}catch (Exception e) {
 			throw new ServletException(e);
 		}
+	}
+
+	private void updateEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		// read employee info from form data
+		int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+		String pass = request.getParameter("pass");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		int age = Integer.parseInt(request.getParameter("age"));
+		String email = request.getParameter("email");
+		int salary = Integer.parseInt(request.getParameter("salary"));
+		String strDate = request.getParameter("oldEmployee");
+		SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = frmt.parse(strDate);
+		java.sql.Date oldEmployee = new java.sql.Date(date.getTime());
+		
+		// create a new Employee object
+		Employee employee = new Employee(employeeId, pass, firstName, lastName, age, email, salary, oldEmployee);
+		
+		// perform update on database
+		employeeDbUtil.updateEmployee(employee);
+		
+		// send them back to the "list employee" page
+		listEmployees(request, response);
+	}
+
+	private void loadEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		// read employee id from form data
+		String employeeId = request.getParameter("employeeId");
+		
+		// get employee from database
+		Employee employee = employeeDbUtil.getEmployee(employeeId);
+		
+		// place employee in the request attribute
+		request.setAttribute("EMPLOYEE", employee);
+		
+		//send to jsp page "update-employee-form.jsp"
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/update-employee-form.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 
 	private void addEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception {

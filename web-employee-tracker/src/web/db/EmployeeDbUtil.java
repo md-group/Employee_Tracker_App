@@ -123,4 +123,92 @@ public class EmployeeDbUtil {
 		
 	}
 
+	public Employee getEmployee(String employeeId) throws Exception {
+		
+		Employee employee = null;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int employeeDbId;
+		
+		try {
+			// convert employee id to int
+			employeeDbId = Integer.parseInt(employeeId);
+			
+			// get a connection
+			conn = dataSource.getConnection();
+			
+			// create sql query to get selected employee
+			String sql = "select * from employee where id=?";
+			
+			// create prepared statement
+			stmt = conn.prepareStatement(sql);
+			
+			// set params
+			stmt.setInt(1, employeeDbId);
+			
+			// execute query
+			rs = stmt.executeQuery();
+			
+			// retrieve data from result set row
+			if(rs.next()) {
+				String pass = rs.getString("pass");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				int age = rs.getInt("age");
+				String email = rs.getString("email");
+				int salary = rs.getInt("salary");
+				Date oldEmployee = rs.getDate("old_employee");
+				
+				// use the employeeDbId during construction
+				employee = new Employee(employeeDbId, pass, firstName, lastName, age, email, salary, oldEmployee);
+			}else {
+				throw new Exception("Couldn't find employee id: " + employeeDbId);
+			}
+			
+			return employee;
+			
+		}finally {
+			// clean up JDBC objects
+			close(conn, stmt, rs);
+		}
+	}
+
+	public void updateEmployee(Employee employee) throws Exception{
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			// get a connection
+			conn = dataSource.getConnection();
+			
+			// create sql update statement
+			String sql = "update employee "
+					+ "set pass=?, first_name=?, last_name=?, age=?, email=?, salary=?, old_employee=? "
+					+ "where id=?";
+			
+			// prepare statement
+			stmt = conn.prepareStatement(sql);
+			
+			// set params
+			stmt.setString(1, employee.getPass());
+			stmt.setString(2, employee.getFirstName());
+			stmt.setString(3, employee.getLastName());
+			stmt.setInt(4, employee.getAge());
+			stmt.setString(5, employee.getEmail());
+			stmt.setInt(6, employee.getSalary());
+			stmt.setDate(7, employee.getOldEmployee());
+			stmt.setInt(8, employee.getId());
+			
+			// execute query
+			stmt.execute();
+			
+		}finally {
+			// clean JDBC objects
+			close(conn, stmt, null);
+		}
+	}
+
 }

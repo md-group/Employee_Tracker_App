@@ -33,6 +33,15 @@
 			
 			<c:forEach var="tempEmployee" items="${EMPLOYEE_LIST}">
 			
+				<!-- set up a link for each row -->
+				<c:url var="tempLink" value="EmployeeControllerServlet">
+					<c:param name="command" value="LOAD" />>
+					<c:param name="employeeId" value="${tempEmployee.id}" />
+				</c:url>
+				
+				<!-- set up a link to delete a employee -->
+				
+				
 				<tr>
 					<td>${tempEmployee.pass}</td>
 					<td>${tempEmployee.firstName}</td>
@@ -41,7 +50,7 @@
 					<td>${tempEmployee.email}</td>
 					<td>${tempEmployee.salary}</td>
 					<td>${tempEmployee.oldEmployee}</td>
-					<td>Update | Delete</td>
+					<td><a href="${tempLink}">Update</a> | Delete</td>
 				</tr>
 			</c:forEach>
 		</table>
