@@ -240,8 +240,132 @@ public class EmployeeDbUtil {
 			// clean up JDBC objects
 			close(conn, stmt, null);
 		}
+	}
+
+	public String getEmail(String email) throws Exception {
 		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String emailEmployee = null;
 		
+		try {
+			
+			// get a connection
+			conn = dataSource.getConnection();
+			
+			// create sql query to get selected email
+			String sql = "SELECT email FROM employee WHERE email=?";
+			
+			// create prepared statement
+			stmt = conn.prepareStatement(sql);
+			
+			// set params
+			stmt.setString(1, email);
+			
+			// execute query
+			rs = stmt.executeQuery();
+			
+			// retrieve data from result set row
+			if(rs.next()) {
+				emailEmployee = rs.getString("email");
+			}
+			
+		}finally {
+			// clean up JDBC objects
+			close(conn, stmt, rs);
+		}
+		
+		return emailEmployee;
+	}
+
+	public String getPass(String password) throws Exception {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String passEmployee = null;
+		
+		try {
+			
+			// get a connection
+			conn = dataSource.getConnection();
+			
+			// create sql query to get selected password
+			String sql = "SELECT pass FROM employee WHERE pass=?";
+			
+			// create prepared statement
+			stmt = conn.prepareStatement(sql);
+			
+			// set params
+			stmt.setString(1, password);
+			
+			// execute query
+			rs = stmt.executeQuery();
+			
+			// retrieve data from result set row
+			if(rs.next()) {
+				passEmployee = rs.getString("pass");
+			}
+			
+		}finally {
+			// clean up JDBC objects
+			close(conn, stmt, rs);
+		}
+		
+		return passEmployee;
+	}
+
+	public List<Employee> getUniqueEmployee(String email) throws Exception {
+		
+		List<Employee> uniqueEmployee = new ArrayList<>();
+		Employee employee = null;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			// get a connection
+			conn = dataSource.getConnection();
+			
+			// create sql query to get selected employee
+			String sql = "SELECT * FROM employee WHERE email=?";
+			
+			// create prepared statement
+			stmt = conn.prepareStatement(sql);
+			
+			// set params
+			stmt.setString(1, email);
+			
+			// execute query
+			rs = stmt.executeQuery();
+			
+			// retrieve data from result set row
+			if(rs.next()) {
+				String pass = rs.getString("pass");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				int age = rs.getInt("age");
+				String employeeEmail = rs.getString("email");
+				int salary = rs.getInt("salary");
+				Date oldEmployee = rs.getDate("old_employee");
+				
+				// construction of the object employee
+				employee = new Employee(pass, firstName, lastName, age, employeeEmail, salary, oldEmployee);
+				
+				uniqueEmployee.add(employee);
+			}else {
+				throw new Exception("Couldn't find employee email: " + email);
+			}
+			
+			return uniqueEmployee;
+			
+		}finally {
+			// clean up JDBC objects
+			close(conn, stmt, rs);
+		}
 	}
 
 }

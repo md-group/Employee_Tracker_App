@@ -18,7 +18,7 @@
 	
 	<h3>Add Employee</h3>
 	
-	<form action="EmployeeControllerServlet" method="get">
+	<form action="AdminControllerServlet" method="get">
 		<input type="hidden" name="command" value="ADD"/>
 		
 		<table>
@@ -60,7 +60,7 @@
 	</form>
 	<div style="clear: both;"></div>
 	<p>
-		<a href="EmployeeControllerServlet">Back to List</a>
+		<a href="AdminControllerServlet">Back to List</a>
 	</p>
 </body>
 </html>

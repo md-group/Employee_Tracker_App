@@ -7,11 +7,11 @@
 <title>Login Page</title>
 <script>
 	function validate() {
-		var username = document.form.username.value;
+		var email = document.form.email.value;
 		var password = document.form.password.value;
 		
-		if(username==null || username=="") {
-			alert("Username cannot be blank");
+		if(email==null || email=="") {
+			alert("Email cannot be blank");
 			return false;
 		}else if(password==null || password=="") {
 			alert("Pasword cannot be blank");
@@ -20,9 +20,9 @@
 	}
 </script>
 </head>
-<body>
-	<div style="text-align:center; background-color:#0066ff; color:white; height:45px">
-		<h1>SC Company SRL | Login Page</h1>
+<body style="font-family: Verdana, Arial, Helvetica, sans-serif">
+	<div style="text-align:center; background-color:#0066ff; color:white; height:auto; padding: 15px 0px 15px 15px;">
+		<h1 style="margin: auto">SC Company SRL | Login Page</h1>
 	</div>
 	
 	<br>
@@ -32,17 +32,16 @@
 		<span style="color:red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage") %></span>
 		<table align="center">
 			<tr>
-				<td align="left">User: </td>
-				<td><input type="text" name="username" style="width:150px"/></td>
+				<td align="left">Email: </td>
+				<td><input type="text" name="email" style="width:150px"/></td>
 			</tr>
 			<tr>
 				<td>Password: </td>
 				<td><input type="password" name="password" style="width:150px"/></td>
 			</tr>
 		</table>
-			<br><input type="submit" value="Login"/>
+			<br><input type="submit" value="Login" style="font-weight: bold"/>
 		</form>
 	</div>
-
 </body>
 </html>

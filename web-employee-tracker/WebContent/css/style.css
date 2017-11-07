@@ -31,11 +31,10 @@ tr:nth-child(odd) {
 }
 
 #header {
-	width: 100%;
 	text-align: center;
 	background-color:#0066ff; 
-	color:white; 
-	height: 45px;
+	color: white; 
+	height: auto;
 	padding: 15px 0px 15px 15px;
 }
 
@@ -46,12 +45,12 @@ tr:nth-child(odd) {
 }
 
 #content {
-	position:relative;
-	left: 150px;
+	position: relative;
+	left: 30px;
 	top:50px;
 }
 
-.add-employee-button {
+.add-employee-button, .logout {
 	border: 1px solid #666;
 	padding: 4px;
 	font-size: 12px;

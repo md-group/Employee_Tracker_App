@@ -17,8 +17,8 @@ import web.db.EmployeeDbUtil;
 import web.model.Employee;
 
 
-@WebServlet("/EmployeeControllerServlet")
-public class EmployeeControllerServlet extends HttpServlet {
+@WebServlet("/AdminControllerServlet")
+public class AdminControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private EmployeeDbUtil employeeDbUtil;
@@ -36,10 +36,23 @@ public class EmployeeControllerServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 	}
-
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		if (req.getAttribute("DATA").equals("DATA")){
+			try {
+				listEmployee(req, resp);
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
+		
 			// read the command parameter
 			String theCommand = request.getParameter("command");
 			
@@ -74,11 +87,25 @@ public class EmployeeControllerServlet extends HttpServlet {
 				listEmployees(request, response);
 			}
 			
-			listEmployees(request, response);
-			
 		}catch (Exception e) {
 			throw new ServletException(e);
 		}
+	}
+	
+	private void listEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		// read email employee from "LoginServlet"
+		String email = (String)request.getAttribute("email");
+		
+		// get unique employee from db util
+		List<Employee> uniqueEmployee = employeeDbUtil.getUniqueEmployee(email);
+		
+		// add unique employee to the request
+		request.setAttribute("UNIQUE_EMPLOYEE", uniqueEmployee);
+		
+		// send to JSP page
+		request.getRequestDispatcher("/list-employee.jsp").forward(request, response);
+		
 	}
 
 	private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -5,6 +5,14 @@
 <head>
 <title>Employee Tracker App</title>
 <link type="text/css" rel="stylesheet" href="css/style.css">
+<script>
+	function logout() {
+		var result = confirm("Are you sure you want to logout?");
+		if(result == true) {
+			window.location.href='login.jsp'
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="header">
@@ -16,7 +24,6 @@
 	<div id="content">
 	
 		<!-- put button: Add Employee -->
-		
 		<input type="button" value="Add Employee" onclick="window.location.href='add-employee-form.jsp'; return false;" class="add-employee-button" />
 	
 		<table>
@@ -34,13 +41,13 @@
 			<c:forEach var="tempEmployee" items="${EMPLOYEE_LIST}">
 			
 				<!-- set up a link for each row -->
-				<c:url var="tempLink" value="EmployeeControllerServlet">
+				<c:url var="tempLink" value="AdminControllerServlet">
 					<c:param name="command" value="LOAD" />>
 					<c:param name="employeeId" value="${tempEmployee.id}" />
 				</c:url>
 				
 				<!-- set up a link to delete a employee -->
-				<c:url var="deleteLink" value="EmployeeControllerServlet">
+				<c:url var="deleteLink" value="AdminControllerServlet">
 					<c:param name="command" value="DELETE" />
 					<c:param name="employeeId" value="${tempEmployee.id}" />
 				</c:url>
@@ -60,6 +67,11 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<br>
+		
+		<!-- put button: Logout -->
+		<input type="button" value="Logout" onclick="return logout()" class="logout" />
+		
 	</div>
 </body>
 </html>
